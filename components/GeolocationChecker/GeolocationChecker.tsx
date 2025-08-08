@@ -21,10 +21,13 @@ export default function GeolocationChecker() {
 
     const success = async ({ coords }: GeolocationPosition) => {
       const data = await getUserInfo(coords);
+
       setBaseCurrency(data.results[0].annotations.currency.iso_code);
     };
 
-    const error = () => {};
+    const error = () => {
+      setBaseCurrency('USD');
+    };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
   }, [baseCurrency, setBaseCurrency, hasRehydrate]);
